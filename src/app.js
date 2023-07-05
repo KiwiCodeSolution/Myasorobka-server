@@ -5,9 +5,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/", (req, res) => {
+app.get("/", (req, res) => {
     res.send("Драсьте!");
 });
+
+
+
 
 app.use((req, res) => {
     res.status(404).json({ message: "Route not found" });
