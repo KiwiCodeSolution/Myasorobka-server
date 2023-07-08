@@ -1,0 +1,16 @@
+POST http://localhost:5000/product/product HTTP/1.1
+Content-Type: application/json
+
+{
+            "category":"zakuska",
+            "discount_price": 345345,
+            "name_of_product":"kabanosy",
+            "price":22,
+            "unit":"kg",
+            "available":false,
+            "description":"bla bla",
+            "favourite":true,
+            "img":"uurl"
+}
+
+
