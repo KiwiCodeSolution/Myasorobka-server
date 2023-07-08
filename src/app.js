@@ -5,6 +5,14 @@ const product_router = require("./routes/product_router");
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+    res.send("Драсьте!");
+});
+app.use("/auth", (req, res) => {
+    console.log("auth");
+    res.json({ message: "auth response!", token: 12345 });
+});
+
 
 
 app.use("/product", product_router);
