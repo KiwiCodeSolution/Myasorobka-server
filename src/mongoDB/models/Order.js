@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const order_schema = new Schema({
+const Order_schema = new Schema({
     order_date: { type: Date, required: true },
     customer: { type: String, required: true },
     phone_number: { type: String, required: true },
@@ -15,4 +15,4 @@ const order_schema = new Schema({
 
 });
 
-module.exports = model("Order", order_schema);
+module.exports = model("Order", Order_schema);

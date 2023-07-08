@@ -6,7 +6,7 @@ module.exports.create_product = async (req, res) => {
         const product = {
             category,
             discount_price,
-            name_of_product,
+            name,
             price,
             unit,
             available,
