@@ -1,0 +1,20 @@
+POST http://localhost:5000/order
+Content-Type: application/json
+
+{
+    "order_date": "2023-07-08",
+    "customer": "J ",
+    "phone_number": "+123456789",
+    "delivery_address": " Main ",
+    "total_amount": 99.99,
+    "product": [
+        {
+            "product": "64a981c81038556c2195f9e9",
+            "quantity": 20
+        },
+        {
+            "product": "64a9683a3c3ca99001da9d20",
+            "quantity": 14
+        }
+    ]
+}
