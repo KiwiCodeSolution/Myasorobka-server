@@ -3,8 +3,8 @@ Content-Type: application/json
 
 {
             "category":"aa",
-            "discount_price": 345345,
-            "name":"kab",
+            "discount_price": 3333333333,
+            "name":"sosiskii",
             "price":22,
             "unit":"kg",
             "available":false,
