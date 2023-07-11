@@ -1,9 +1,9 @@
 const Product_model = require("../mongoDB/models/Product");
 const { NotFound } = require("http-errors");
 
+
 module.exports.create_product = async (req, res) => {
-    const new_product = new Product_model({ ...req.body });
-    const saved_product = await new_product.save();
+    const saved_product = await Product_model.create(req.body);
     res.status(201).json(saved_product);
 };
 
