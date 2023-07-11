@@ -6,18 +6,18 @@ module.exports.create_order = async (req, res) => {
     res.status(201).json(saved_order);
 };
 
-module.exports.get_all_order = async (req, res) => {
+module.exports.get_all_orders = async (req, res) => {
     const orders = await Order.find().populate('product.product');;
     res.status(200).json(orders);
 };
 
-module.exports.get_order_by_id = async (req, res) => {
-    const order = await Order.findById(req.params.id).populate('product.product');;
-    if (!order) {
-        throw new NotFound("order not found");
-    }
-    res.json(order);
-};
+// module.exports.get_order_by_id = async (req, res) => {
+//     const order = await Order.findById(req.params.id).populate('product.product');;
+//     if (!order) {
+//         throw new NotFound("order not found");
+//     }
+//     res.json(order);
+// };
 
 module.exports.update_order = async (req, res) => {
     const order_id = req.params.id;
@@ -30,7 +30,6 @@ module.exports.update_order = async (req, res) => {
         throw new NotFound("order not found");
     }
     res.json(updated_order);
-
 };
 
 
@@ -40,7 +39,6 @@ module.exports.delete_order = async (req, res) => {
         throw new NotFound("order not found");
     }
     res.json({ message: 'Order deleted successfully' });
-
 };
 
 

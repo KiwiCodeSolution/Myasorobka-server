@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const Order_schema = new Schema({
     order_date: {
-        type: Date,
+        type: Date, // можно упростить
         required: true,
         default: () => {
             const now = new Date();
@@ -14,14 +14,12 @@ const Order_schema = new Schema({
     phone_number: { type: String, required: true },
     delivery_address: { type: String, required: true },
     total_amount: { type: Number, required: true },
-    product: [
+    products: [
         {
             product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
             quantity: { type: Number, required: true },
-
         }
     ],
-
 });
 
 module.exports = model("Order", Order_schema);
