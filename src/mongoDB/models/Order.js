@@ -20,6 +20,10 @@ const Order_schema = new Schema({
             quantity: { type: Number, required: true },
         }
     ],
+},
+{
+	versionKey: false,
+	timestamps: true
 });
 
 module.exports = model("Order", Order_schema);
