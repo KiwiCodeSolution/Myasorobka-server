@@ -11,7 +11,7 @@ const Product_schema = new Schema({
     description: { type: String },
     favourite: { type: Boolean },
     img: { type: String },
-    archived: { type: Boolean, required: true }
+    archived: { type: Boolean }
 },
 {
     VersionKey: false,
