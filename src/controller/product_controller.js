@@ -12,13 +12,13 @@ module.exports.get_all_products = async (req, res) => {
     res.status(200).json(products);
 };
 
-module.exports.get_product_by_id = async (req, res) => {
-    const product = await Product_model.findById(req.params.id);
-    if (!product) {
-        throw new NotFound("product not found");
-    }
-    res.json(product);
-};
+// module.exports.get_product_by_id = async (req, res) => {
+//     const product = await Product_model.findById(req.params.id);
+//     if (!product) {
+//         throw new NotFound("product not found");
+//     }
+//     res.json(product);
+// };
 
 module.exports.update_product = async (req, res) => {
 
@@ -32,7 +32,6 @@ module.exports.update_product = async (req, res) => {
         throw new NotFound("product not found");
     }
     res.json(updated_product);
-
 };
 
 
@@ -42,5 +41,4 @@ module.exports.delete_product = async (req, res) => {
         throw new NotFound("product not found");
     }
     res.json({ message: 'Product deleted successfully' });
-
 };

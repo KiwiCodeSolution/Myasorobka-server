@@ -16,14 +16,16 @@ const Order_schema = new Schema({
     phone_number: { type: String, required: true },
     delivery_address: { type: String, required: true },
     total_amount: { type: Number, required: true },
-    product: [
+    products: [
         {
             product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
             quantity: { type: Number, required: true },
-
         }
     ],
-
+},
+{
+	versionKey: false,
+	timestamps: true
 });
 
 module.exports = model("Order", Order_schema);
