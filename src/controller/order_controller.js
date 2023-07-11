@@ -7,7 +7,7 @@ module.exports.create_order = async (req, res) => {
 };
 
 module.exports.get_all_orders = async (req, res) => {
-    const orders = await Order.find().populate('product.product');;
+    const orders = await Order.find().populate('products.product');;
     res.status(200).json(orders);
 };
 
