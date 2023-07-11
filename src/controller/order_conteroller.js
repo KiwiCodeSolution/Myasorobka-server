@@ -2,8 +2,7 @@ const Order = require("../mongoDB/models/Order");
 const { NotFound } = require("http-errors");
 
 module.exports.create_order = async (req, res) => {
-    const new_order = new Order(req.body);
-    const saved_order = await new_order.save();
+    const saved_order = await Order.create(req.body);
     res.status(201).json(saved_order);
 };
 
