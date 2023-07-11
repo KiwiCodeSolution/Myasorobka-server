@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const Order_schema = new Schema({
     order_date: {
+
         type: Date,
         required: true,
         default: () => {
@@ -10,6 +11,7 @@ const Order_schema = new Schema({
             return now;
         }
     },
+    order_number: { type: Number, required: true, unique: true },
     customer_name: { type: String, required: true },
     phone_number: { type: String, required: true },
     delivery_address: { type: String, required: true },
