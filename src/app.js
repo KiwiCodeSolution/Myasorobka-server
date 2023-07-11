@@ -1,15 +1,16 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const product_router = require("./routes/product_router");
+const order_router = require("./routes/order_router")
+const auth_router = require("./routes/auth_router")
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("Драсьте!");
-});
-
-
+app.use("/product", product_router);
+app.use("/order", order_router);
+app.use('/auth', auth_router);
 
 
 app.use((req, res) => {
