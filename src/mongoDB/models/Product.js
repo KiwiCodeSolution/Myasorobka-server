@@ -11,7 +11,11 @@ const Product_schema = new Schema({
     description: { type: String },
     favourite: { type: Boolean },
     img: { type: String },
-    archive: { type: Boolean, required: true }
+    archived: { type: Boolean }
+},
+{
+    VersionKey: false,
+    timestamps: true
 });
 
 module.exports = model("Product", Product_schema);
