@@ -29,3 +29,8 @@ module.exports.login = async (req, res) => {
     res.json({ token });
 };
 
+module.exports.logout = async (req, res) => {
+    req.user.token = null;
+    await req.user.save();
+    res.json({ message: `User ${req.user} logged out successfull` })
+}
