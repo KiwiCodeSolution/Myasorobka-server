@@ -18,7 +18,7 @@ module.exports = async function (req, res, next) {
             throw new Unauthorized('User not authorized');
         }
         req.user = user;
-        await user.save();
+
         next();
     } catch (error) {
         res.status(error.status || 401).json({ message: error.message });
