@@ -6,9 +6,9 @@ Content-Type: application/json
     "phone_number": "+123456789",
     "delivery_address": " Main ",
     "total_amount": 99.99,
-    "product": [
+    "products": [
         { 
-            "product": "64aa8a284bd990790be6db8e",
+            "product": "64aa8a7a4bd990790be6db98",
             "quantity": 20
         },
         {
