@@ -1,1 +1,3 @@
 DELETE http://localhost:5000/order/64a984fb3338b492071a28fe  HTTP/1.1
+
+# DELETE https://kiwicode.tech/myasorobka/api/order/64b10ffd123a9ef54c0c793b  HTTP/1.1
