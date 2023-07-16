@@ -36,5 +36,5 @@ module.exports.logout = async (req, res) => {
 };
 
 module.exports.getCurrent = async (req, res) => {
-    res.json({ message: `current user - ${user.username} ` });
+    res.json({ message: `current user - ${req.user.username} ` });
 }
