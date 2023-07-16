@@ -1,3 +1,7 @@
-GET http://localhost:5000/product/ HTTP/1.1
+GET https://kiwicode.tech/product/ HTTP/1.1
+
+# GET http://kiwicode.tech/myasorobka/api/product/ HTTP/1.1
+
+
 
 

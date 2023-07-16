@@ -2,12 +2,18 @@ const Order = require("../mongoDB/models/Order");
 const { NotFound } = require("http-errors");
 
 module.exports.create_order = async (req, res) => {
-    const saved_order = await Order.create(req.body);
+    const counter = await Order.findOne().sort({ order_number: -1 }).select("order_number");
+    const order_number = counter ? counter.order_number + 1 : 1;
+    const order_data = {
+        ...req.body,
+        order_number: order_number
+    };
+    const saved_order = await Order.create(order_data);
     res.status(201).json(saved_order);
 };
 
 module.exports.get_all_orders = async (req, res) => {
-    const orders = await Order.find().populate('product.product');;
+    const orders = await Order.find().populate('products.product');;
     res.status(200).json(orders);
 };
 
