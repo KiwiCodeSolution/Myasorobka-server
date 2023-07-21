@@ -3,6 +3,7 @@ const { NotFound } = require("http-errors");
 
 
 module.exports.create_product = async (req, res) => {
+    // console.log("body:", req.body);
     const saved_product = await Product_model.create(req.body);
     res.status(201).json(saved_product);
 };

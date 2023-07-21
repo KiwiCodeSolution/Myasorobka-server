@@ -7,7 +7,7 @@ const order_router = require("./routes/order_router")
 const auth_router = require("./routes/auth_router")
 const upload_router = require("./routes/upload_router")
 app.use(cors());
-// app.use(express.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/product", product_router);
