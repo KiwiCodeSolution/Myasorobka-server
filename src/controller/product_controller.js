@@ -3,6 +3,10 @@ const { NotFound } = require("http-errors");
 
 
 module.exports.create_product = async (req, res) => {
+    const existingProduct = await Product_model.findOne({ name: req.body.name });
+    if (existingProduct) {
+        return res.status(409).json({ error: 'Продукт з такою назвою вже існує.' });
+    }
     const saved_product = await Product_model.create(req.body);
     res.status(201).json(saved_product);
 };
