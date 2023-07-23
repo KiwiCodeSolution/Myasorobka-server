@@ -33,4 +33,8 @@ module.exports.logout = async (req, res) => {
     req.user.token = null;
     await req.user.save();
     res.json({ message: `User ${req.user} logged out successfull` })
+};
+
+module.exports.getCurrent = async (req, res) => {
+    res.json({ message: `current user - ${req.user.username} ` });
 }

@@ -6,7 +6,8 @@ module.exports.create_order = async (req, res) => {
     const order_number = counter ? counter.order_number + 1 : 1;
     const order_data = {
         ...req.body,
-        order_number: order_number
+        order_number: order_number,
+        archived: req.body.archived ? true : false // если в запросе нет поля, добавляем
     };
     const saved_order = await Order.create(order_data);
     res.status(201).json(saved_order);

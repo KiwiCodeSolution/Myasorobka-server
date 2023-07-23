@@ -10,7 +10,7 @@ Content-Type: application/json
             "available":false,
             "description":"bla bla",
             "favourite":true,
-            "img":"uurl"
+            "img":""
 }
 
 # POST https://kiwicode.tech/myasorobka/api/product/ HTTP/1.1

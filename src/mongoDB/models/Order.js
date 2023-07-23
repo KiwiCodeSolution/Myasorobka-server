@@ -16,6 +16,7 @@ const Order_schema = new Schema({
     phone_number: { type: String, required: true },
     delivery_address: { type: String, required: true },
     total_amount: { type: Number, required: true },
+    archived: { type: Boolean },
     products: [
         {
             product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
