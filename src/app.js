@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/product", product_router);
 app.use("/order", order_router);
 app.use("/auth", auth_router);
-app.use("/upload", upload_router)
+app.use("/uploads", upload_router)
 
 app.use((req, res) => {
     res.status(404).json({ message: "Route not found" });
