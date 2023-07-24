@@ -23,6 +23,17 @@ module.exports.upload_img = async (req, res) => {
     console.log(image_url)
     res.json({ image_url });
 };
+module.exports.get_img = async (req, res) => {
+    const imagePath = `uploads/${req.params.img}`;
+    const product = await Product.findOne({ img: imagePath });
+    if (!product || !product.img) {
+        return res.status(404).json({ error: 'Изображение не найдено' });
+    }
+    const imageBuffer = await fs.readFile(product.img);
+    res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+    res.end(imageBuffer);
+
+}
 
 
 // Метод для удаления изображения по его  старой ссылке
