@@ -25,11 +25,13 @@ module.exports.upload_img = async (req, res) => {
 };
 module.exports.get_img = async (req, res) => {
     const imagePath = `uploads/${req.params.img}`;
-    const product = await Product.findOne({ img: imagePath });
-    if (!product || !product.img) {
-        return res.status(404).json({ error: 'Изображение не найдено' });
-    }
-    const imageBuffer = await fs.readFile(product.img);
+    // const product = await Product.findOne({ img: imagePath });
+    // console.log("product:", product)
+    // if (!product || !product.img) {
+    //     return res.status(404).json({ error: 'Изображение не найдено' });
+    // }
+    // const imageBuffer = await fs.readFile(product.img);
+    const imageBuffer = await fs.readFile(imagePath);
     res.writeHead(200, { 'Content-Type': 'image/jpeg' });
     res.end(imageBuffer);
 

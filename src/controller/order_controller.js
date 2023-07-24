@@ -39,7 +39,6 @@ module.exports.update_order = async (req, res) => {
     res.json(updated_order);
 };
 
-
 module.exports.delete_order = async (req, res) => {
     const order = await Order.findByIdAndRemove(req.params.id);
     if (!order) {
@@ -47,5 +46,3 @@ module.exports.delete_order = async (req, res) => {
     }
     res.json({ message: 'Order deleted successfully' });
 };
-
-
