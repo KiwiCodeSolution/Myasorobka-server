@@ -17,6 +17,7 @@ const Order_schema = new Schema({
     delivery_address: { type: String, required: true },
     total_amount: { type: Number, required: true },
     archived: { type: Boolean },
+    status: { type: String }, // new | inProcess | sended
     products: [
         {
             product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
