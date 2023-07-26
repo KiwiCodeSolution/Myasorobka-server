@@ -1,5 +1,5 @@
 const Product_model = require("../mongoDB/models/Product");
-const Image_model = require("../mongoDB/models/Image");
+const Gallery_model = require("../mongoDB/models/Gallery");
 const { NotFound } = require("http-errors");
 const fs = require('fs').promises;
 const path = require('path');
@@ -12,7 +12,7 @@ module.exports.create_product = async (req, res) => {
     }
     const saved_product = await Product_model.create(req.body);
     if (saved_product.img) {
-        const image = await Image_model.findOne({ img_url: saved_product.img });
+        const image = await Gallery_model.findOne({ img_url: saved_product.img });
         if (image) {
             image.product_id = saved_product._id;
             await image.save();
@@ -41,7 +41,7 @@ module.exports.update_product = async (req, res) => {
         throw new NotFound("product not found");
     }
     if (updated_product.img) {
-        const image = await Image_model.findOne({ img_url: updated_product.img });
+        const image = await Gallery_model.findOne({ img_url: updated_product.img });
         if (image) {
             image.product_id = updated_product._id;
             await image.save();
