@@ -1,4 +1,5 @@
 const Product = require('../mongoDB/models/Product');
+const Image = require("../mongoDB/models/Image");
 const multer = require('multer');
 const fs = require('fs').promises;
 
@@ -19,7 +20,12 @@ module.exports.upload_img = async (req, res) => {
         return res.status(400).json({ message: "No image uploaded" });
     }
     const image_url = req.file.path;
-    const product_name = req.query.productName;
+    const image_data = {
+        img_url: image_url,
+        product_id: null,
+        used: false,
+    };
+    const saved_image = await Image.create(image_data);
     console.log(image_url)
     res.json({ image_url });
 };
