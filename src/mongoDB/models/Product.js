@@ -9,7 +9,7 @@ const Product_schema = new Schema({
     discount_price: { type: String },
     description: { type: String },
     favourite: { type: Boolean },
-    img: { type: String },
+    img: { type: String, default: undefined, sparse: true },
     available: { type: Boolean },
     archived: { type: Boolean }
 },
