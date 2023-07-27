@@ -13,9 +13,9 @@ const Product_schema = new Schema({
     available: { type: Boolean },
     archived: { type: Boolean }
 },
-    {
-        versionKey: false,
-        timestamps: true
-    });
+{
+    versionKey: false,
+    timestamps: true
+});
 
 module.exports = model("Product", Product_schema);

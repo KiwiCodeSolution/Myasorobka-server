@@ -33,26 +33,34 @@ module.exports.update_product = async (req, res) => {
     const productId = req.params.id;
     const updated_product = await Product_model.findByIdAndUpdate(
         productId,
-        req.body,
-        { new: true }
+        req.body
+        // { new: true }
     );
+    console.log("old image url:", updated_product.img);
+
     if (!updated_product) {
         throw new NotFound("product not found");
     }
-    if (updated_product.img) {
-        const image = await Gallery_model.findOne({ img_url: updated_product.img });
-        console.log("updated_product.img:", updated_product.img);
-        console.log("image:", image);
+    if (req.body.img) { // если продукт с картинкой, ищем её в галерее
+        const image = await Gallery_model
+            .findOne({ img_url: req.body.img })
+            .select(["img_url", "product_id"]);
 
         if (image) {
             image.product_id = updated_product._id;
             await image.save();
             console.log(`Привязка изображения прошла успешно: ${image}`);
+
+            const oldImage = await Gallery_model.findOne({ img_url: updated_product.img });
+            oldImage.product_id = null;
+            oldImage.save();
         } else {
-            console.log(`Изображение ${updated_product.img} не найдено - значит новая картинка.`);
+            console.log(`Изображение ${updated_product.img} не найдено`);
+            throw new NotFound("такой картинки нет в базе данных")
         }
     }
-    res.json(updated_product);
+    // res.json(updated_product);
+    res.json({ message: "updated successfully" });
 };
 
 
