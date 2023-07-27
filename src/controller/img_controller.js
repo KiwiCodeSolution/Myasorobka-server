@@ -4,6 +4,7 @@ const multer = require('multer');
 const fs = require('fs').promises;
 const sharp = require('sharp');
 const path = require('path');
+const { baseServerUrl } = require("../config/urlConfig");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -21,17 +22,18 @@ module.exports.upload_img = async (req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: "No image uploaded" });
     }
-    const image_url = req.file.path;
+
     const resizedImageBuffer = await sharp(req.file.path).resize({ width: 800, height: 600 }).toBuffer();
     await fs.writeFile(req.file.path, resizedImageBuffer);
+
+    const img_url = baseServerUrl + req.file.path;
     const image_data = {
-        img_url: image_url,
+        img_url,
         product_id: null,
         used: false,
     };
     const saved_image = await Gallery_model.create(image_data);
-    console.log(image_url);
-    res.json({ image_url });
+    res.json({ img_url });
 };
 module.exports.get_img = async (req, res) => {
     const imagePath = `uploads/${req.params.img}`;

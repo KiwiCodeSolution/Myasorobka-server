@@ -4,7 +4,6 @@ const { NotFound } = require("http-errors");
 const fs = require('fs').promises;
 const path = require('path');
 
-
 module.exports.create_product = async (req, res) => {
     const existingProduct = await Product_model.findOne({ name: req.body.name });
     if (existingProduct) {
@@ -42,12 +41,15 @@ module.exports.update_product = async (req, res) => {
     }
     if (updated_product.img) {
         const image = await Gallery_model.findOne({ img_url: updated_product.img });
+        console.log("updated_product.img:", updated_product.img);
+        console.log("image:", image);
+
         if (image) {
             image.product_id = updated_product._id;
             await image.save();
             console.log(`Привязка изображения прошла успешно: ${image}`);
         } else {
-            console.log(`Изображение с адресом ${updated_product.img} не найдено.`);
+            console.log(`Изображение ${updated_product.img} не найдено - значит новая картинка.`);
         }
     }
     res.json(updated_product);
