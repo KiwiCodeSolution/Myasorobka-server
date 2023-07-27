@@ -1,13 +1,13 @@
 const Product_model = require("../mongoDB/models/Product");
 const Gallery_model = require("../mongoDB/models/Gallery");
-const { NotFound } = require("http-errors");
+const { NotFound, Conflict } = require("http-errors");
 const fs = require('fs').promises;
 const path = require('path');
 
 module.exports.create_product = async (req, res) => {
     const existingProduct = await Product_model.findOne({ name: req.body.name });
     if (existingProduct) {
-        return res.status(409).json({ error: 'Продукт з такою назвою вже існує.' });
+        throw new Conflict ("Продукт з такою назвою вже існує");
     }
     const saved_product = await Product_model.create(req.body);
     if (saved_product.img) {
