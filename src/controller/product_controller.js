@@ -29,7 +29,6 @@ module.exports.get_all_products = async (req, res) => {
 };
 
 module.exports.update_product = async (req, res) => {
-  console.log("req_body: ", req.body);
   const productId = req.params.id;
   const updated_product = await Product_model.findByIdAndUpdate(
     productId,
@@ -62,7 +61,6 @@ module.exports.update_product = async (req, res) => {
       throw new NotFound("такой картинки нет в базе данных");
     }
   }
-  console.log("updated product", updated_product);
   // res.json(updated_product);
   res.json({ data: updated_product, message: "updated successfully" });
 };
