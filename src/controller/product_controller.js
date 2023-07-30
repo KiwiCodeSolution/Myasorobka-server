@@ -32,11 +32,9 @@ module.exports.get_all_products = async (req, res) => {
 module.exports.update_product = async (req, res) => {
     const productId = req.params.id;
     const { body, file } = req;
-
-    // console.log("product id:", body.product._id);
-    console.log("file:", file);
+    // console.log("file:", file);
     const product = JSON.parse(body.product);
-    console.log("product:", product);
+    // console.log("product:", product);
 
     if (file) {
         const oldImage = product.img;
@@ -47,8 +45,11 @@ module.exports.update_product = async (req, res) => {
             console.log("old image path:", oldImagePath);
             try {
                 fs.unlink(oldImagePath, function (err) {
-                    if (err) console.log(err);
-                    console.log("old file deleted")
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log("old file deleted")
+                    }
                 })
             }
             catch (err) {
@@ -57,7 +58,7 @@ module.exports.update_product = async (req, res) => {
         } 
         product.img = baseServerUrl + file.path;
     }
-    console.log("data:", { ...product });
+    // console.log("data:", { ...product });
 
   const updated_product = await Product_model.findByIdAndUpdate(
     productId,
