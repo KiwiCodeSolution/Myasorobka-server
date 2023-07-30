@@ -1,7 +1,7 @@
 const Product_model = require("../mongoDB/models/Product");
 const Gallery_model = require("../mongoDB/models/Gallery");
 const { NotFound, Conflict } = require("http-errors");
-const fs = require("fs").promises;
+const fs = require("fs");
 const path = require("path");
 const { baseServerUrl } = require("../config/urlConfig.json");
 
@@ -45,11 +45,15 @@ module.exports.update_product = async (req, res) => {
             const lastImageName = oldImage.split("uploads")[1];
             const oldImagePath = path.join(__dirname, "../../", "uploads", lastImageName)
             console.log("old image path:", oldImagePath);
-
-            fs.unlink(oldImagePath, function (err) {
-            if (err) console.log(err);
-            console.log("old file deleted")
-            });
+            try {
+                fs.unlink(oldImagePath, function (err) {
+                    if (err) console.log(err);
+                    console.log("old file deleted")
+                })
+            }
+            catch (err) {
+                console.log(err);
+            };
         } 
         product.img = baseServerUrl + file.path;
     }
