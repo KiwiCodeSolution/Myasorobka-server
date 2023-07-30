@@ -29,13 +29,18 @@ module.exports.get_all_products = async (req, res) => {
 };
 
 module.exports.update_product = async (req, res) => {
-  const productId = req.params.id;
+    // const productId = req.params.id;
+    const { body, file } = req;
+    console.log("product:", body.product);
+    console.log("product id:", body.product._id);
+    console.log("file:", file);
+
   const updated_product = await Product_model.findByIdAndUpdate(
-    productId,
-    req.body,
+    body.product._id,
+    body,
     { new: true }
   );
-  console.log("old image url:", updated_product.img);
+//   console.log("old image url:", updated_product.img);
 
   if (!updated_product) {
     throw new NotFound("product not found");

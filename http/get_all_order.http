@@ -1,4 +1,0 @@
-GET http://localhost:5000/order/ HTTP/1.1
-
-
-# GET http://kiwicode.tech/myasorobka/api/order/ HTTP/1.1
