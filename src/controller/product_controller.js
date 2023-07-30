@@ -3,6 +3,7 @@ const Gallery_model = require("../mongoDB/models/Gallery");
 const { NotFound, Conflict } = require("http-errors");
 const fs = require("fs").promises;
 const path = require("path");
+const { baseServerUrl } = require("../config/urlConfig.json");
 
 module.exports.create_product = async (req, res) => {
   const existingProduct = await Product_model.findOne({ name: req.body.name });
@@ -29,15 +30,34 @@ module.exports.get_all_products = async (req, res) => {
 };
 
 module.exports.update_product = async (req, res) => {
-    // const productId = req.params.id;
+    const productId = req.params.id;
     const { body, file } = req;
-    console.log("product:", body.product);
-    console.log("product id:", body.product._id);
+
+    // console.log("product id:", body.product._id);
     console.log("file:", file);
+    const product = JSON.parse(body.product);
+    console.log("product:", product);
+
+    if (file) {
+        const oldImage = product.img;
+
+        if (oldImage) {
+            const lastImageName = oldImage.split("uploads")[1];
+            const oldImagePath = path.join(__dirname, "../../", "uploads", lastImageName)
+            console.log("old image path:", oldImagePath);
+
+            fs.unlink(oldImagePath, function (err) {
+            if (err) console.log(err);
+            console.log("old file deleted")
+            });
+        } 
+        product.img = baseServerUrl + file.path;
+    }
+    console.log("data:", { ...product });
 
   const updated_product = await Product_model.findByIdAndUpdate(
-    body.product._id,
-    body,
+    productId,
+      { ...product },
     { new: true }
   );
 //   console.log("old image url:", updated_product.img);
