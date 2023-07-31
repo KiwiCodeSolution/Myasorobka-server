@@ -14,7 +14,7 @@ module.exports.create_order = async (req, res) => {
 };
 
 module.exports.get_all_orders = async (req, res) => {
-    const orders = await Order.find().populate('products.product');;
+    const orders = await (await Order.find().populate('products.product')).reverse();
     res.status(200).json(orders);
 };
 
