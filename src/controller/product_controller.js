@@ -24,26 +24,22 @@ const deleteOldImage = (oldImage) => {
 }
 
 module.exports.create_product = async (req, res) => {
-  const existingProduct = await Product_model.findOne({ name: req.body.name });
+  const { body, file } = req;
+  const product = JSON.parse(body.product);
+
+  const existingProduct = await Product_model.findOne({ name: body.name });
   if (existingProduct) {
     throw new Conflict("Продукт з такою назвою вже існує");
   }
-  const saved_product = await Product_model.create(req.body);
-  if (saved_product.img) {
-    const image = await Gallery_model.findOne({ img_url: saved_product.img });
-    if (image) {
-      image.product_id = saved_product._id;
-      await image.save();
-      console.log(`Привязка прошла успешно: ${image}`);
-    } else {
-      console.log(`Изображение с адресом ${saved_product.img} не найдено.`);
-    }
-  }
-  res.status(201).json(saved_product);
+
+  if (file) product.img = baseServerUrl + file.path;
+  const saved_product = await Product_model.create({...product});
+
+  res.status(201).json({ product: saved_product, message: "product created successfully" });
 };
 
 module.exports.get_all_products = async (req, res) => {
-  const products = await Product_model.find();
+  const products = await (await Product_model.find()).reverse();
   res.status(200).json(products);
 };
 
