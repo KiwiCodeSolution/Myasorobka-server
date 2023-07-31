@@ -1,4 +1,0 @@
-GET http://localhost:5000/order/64b1135da0fbbdc2fee13aff HTTP/1.1
-
-
-# GET http://kiwicode.tech/myasorobka/api/order/64b1135da0fbbdc2fee13aff HTTP/1.1

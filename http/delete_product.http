@@ -1,6 +1,0 @@
-DELETE http://localhost:5000/product/64a99572b982b419bbe09968 HTTP/1.1
-
-
-
-
-# DELETE https://kiwicode.tech/myasorobka/api/product/64afb8a67acbdc85e5eb4abe HTTP/1.1

@@ -1,7 +1,0 @@
- GET http://localhost:5000/auth/logout HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGFlNzEzMWIzNDM1YmZhYWU5YWRlNTYiLCJpYXQiOjE2ODkxNTQ4ODV9.4zZQlWw5GIHlkUYd-653_a0ctLlGAaDsfrwC-4Fgafk
-
-
-#  GET http://kiwicode.tech/myasorobka/api/auth/logout HTTP/1.1
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGIwNGFlYzg2Y2NmMzg4NWM0MTY1ZTMiLCJpYXQiOjE2ODkzMjY3ODF9.pQLWdP0frjJYwrwrynTnfL_DeOnVLiuCo6KXBIq60dU
-# # 
