@@ -57,13 +57,12 @@ module.exports.update_product = async (req, res) => {
   const productToUpdate = { ...body };
 
   if (file) {
-    const oldImage = productToUpdate.img;
-
-    if (oldImage) deleteOldImage(oldImage);
+    // const oldImage = productToUpdate.img;
+    // if (oldImage) deleteOldImage(oldImage);
     productToUpdate.img = baseServerUrl + file.path;
   }
 
-  console.log("product to update: ", productToUpdate);
+  const currentProduct = await Product_model.findById(productId);
 
   const updated_product = await Product_model.findByIdAndUpdate(
     productId,
@@ -73,6 +72,10 @@ module.exports.update_product = async (req, res) => {
 
   if (!updated_product) {
     throw new NotFound("product not found");
+  }
+
+  if (currentProduct.img && currentProduct.img !== updated_product.img) {
+    deleteOldImage(currentProduct.img);
   }
 
   res.json({ data: updated_product, message: "updated successfully" });
