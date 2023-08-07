@@ -4,11 +4,28 @@ const multer = require("multer");
 const fs = require("fs").promises;
 const sharp = require("sharp");
 const path = require("path");
+const { BadRequest } = require("http-errors");
 const { baseServerUrl } = require("../config/urlConfig");
+
+const FILE_MAX_SIZE = 8388608;
+const VALID_MIME_TYPES = ["image/jpg", "image/jpeg", "image/png"];
+
+const invalidMimeTypesFilter = (req, file, cb) => {
+  if (!VALID_MIME_TYPES.includes(file.mimetype)) {
+    cb(
+      BadRequest(
+        `Invalid file mimetype - ${
+          file.mimetype
+        }. Mimetype must be one of: ${VALID_MIME_TYPES.join(", ")}.`
+      )
+    );
+  } else {
+    cb(null, true);
+  }
+};
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    console.log("file: ", file);
     cb(null, "uploads/"); // Папка, куда будут сохраняться загруженные изображения
   },
   filename: (req, file, cb) => {
@@ -20,7 +37,14 @@ const storage = multer.diskStorage({
     cb(null, fileName); // Генерация уникального имени файла
   },
 });
-module.exports.upload = multer({ storage });
+
+module.exports.upload = multer({
+  storage,
+  limits: {
+    fileSize: FILE_MAX_SIZE,
+  },
+  fileFilter: invalidMimeTypesFilter,
+});
 
 module.exports.upload_img = async (req, res) => {
   if (!req.file) {
