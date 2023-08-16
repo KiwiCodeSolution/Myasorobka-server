@@ -25,15 +25,18 @@ const invalidMimeTypesFilter = (req, file, cb) => {
 };
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Папка, куда будут сохраняться загруженные изображения
-  },
+  destination: "uploads/", // Папка, куда будут сохраняться загруженные изображения
+
   filename: (req, file, cb) => {
-    const currentDate = new Date()
-      .toISOString()
-      .slice(0, 19)
-      .replace(/[-T:/]/g, "");
-    const fileName = `${currentDate}.jpeg`;
+    const parsedOriginalName = file.originalname.split(".");
+    const extention = parsedOriginalName.pop();
+    const OriginalNameWithoutExtention = parsedOriginalName.join(".");
+    // const currentDate = new Date()
+    //   .toISOString()
+    //   .slice(0, 19)
+    //   .replace(/[-T:/]/g, "");
+    // const fileName = `${currentDate}.jpeg`;
+    const fileName = `${OriginalNameWithoutExtention}_${Date.now()}.${extention}`;
     cb(null, fileName); // Генерация уникального имени файла
   },
 });

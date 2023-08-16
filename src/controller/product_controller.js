@@ -23,19 +23,22 @@ const deleteOldImage = (oldImage) => {
 };
 
 module.exports.create_product = async (req, res) => {
-  const { body, file } = req;
-  // const product = JSON.parse(body.product);
+  const { body, files } = req;
 
   const newProduct = { ...body };
 
   const existingProduct = await Product_model.findOne({
     name: newProduct.name,
   });
+
   if (existingProduct) {
     throw new Conflict("Продукт з такою назвою вже існує");
   }
 
-  if (file) newProduct.img = baseServerUrl + file.path;
+  if (files.length) {
+    newProduct.images = files.map((file) => baseServerUrl + file.path);
+  }
+
   const saved_product = await Product_model.create({ ...newProduct });
 
   res
@@ -50,16 +53,13 @@ module.exports.get_all_products = async (req, res) => {
 
 module.exports.update_product = async (req, res) => {
   const productId = req.params.id;
-  const { body, file } = req;
-  console.log("body: ", body);
-  console.log("file: ", file);
-  // const product = JSON.parse(body.product);
-  const productToUpdate = { ...body };
+  const { body, files } = req;
+  const productToUpdate = { images: [], ...body };
 
-  if (file) {
-    // const oldImage = productToUpdate.img;
-    // if (oldImage) deleteOldImage(oldImage);
-    productToUpdate.img = baseServerUrl + file.path;
+  if (files.length) {
+    files.forEach((file) =>
+      productToUpdate.images.push(baseServerUrl + file.path)
+    );
   }
 
   const currentProduct = await Product_model.findById(productId);
@@ -74,8 +74,12 @@ module.exports.update_product = async (req, res) => {
     throw new NotFound("product not found");
   }
 
-  if (currentProduct.img && currentProduct.img !== updated_product.img) {
-    deleteOldImage(currentProduct.img);
+  if (currentProduct.images) {
+    currentProduct.images.forEach((image) => {
+      if (!updated_product.images.includes(image)) {
+        deleteOldImage(image);
+      }
+    });
   }
 
   res.json({ data: updated_product, message: "updated successfully" });
@@ -87,7 +91,7 @@ module.exports.delete_product = async (req, res) => {
   if (!product) {
     throw new NotFound("product not found");
   } else {
-    deleteOldImage(product.img);
+    product.images.forEach((image) => deleteOldImage(image));
   }
   res.json({ message: "Product deleted successfully" });
 };
