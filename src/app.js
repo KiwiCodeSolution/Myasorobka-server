@@ -20,6 +20,10 @@ app.use((req, res) => {
 });
 
 app.use(async (err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    err.status = 400;
+  }
+
   const { status = 500, message = "Server error" } = err;
   res.status(status).json({ message });
 });
